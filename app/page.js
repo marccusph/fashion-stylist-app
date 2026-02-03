@@ -3,6 +3,9 @@
 import React, { useState, useRef } from 'react';
 import { Camera, Upload, Sparkles, ShoppingBag, X, Loader2 } from 'lucide-react';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default function FashionStylist() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
