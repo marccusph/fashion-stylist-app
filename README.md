@@ -4,47 +4,52 @@ An AI-powered app that analyzes your fashion items and provides instant styling 
 
 ## 🚀 Quick Deploy to Vercel
 
-### Option 1: Deploy via Vercel Dashboard (Easiest!)
+### Step 1: Get Your Anthropic API Key
 
-1. **Create a GitHub account** (if you don't have one): https://github.com/signup
+1. Go to https://console.anthropic.com/
+2. Sign up or log in
+3. Go to "API Keys" section
+4. Click "Create Key"
+5. Copy your API key (keep it safe!)
 
-2. **Create a new repository**:
-   - Go to https://github.com/new
-   - Name it: `fashion-stylist-app`
-   - Make it Public
-   - Don't initialize with README
-   - Click "Create repository"
+### Step 2: Create a GitHub Account
 
-3. **Upload your code to GitHub**:
-   - Download this entire folder to your computer
-   - On your new GitHub repo page, click "uploading an existing file"
-   - Drag all the files from the `fashion-stylist-app` folder
-   - Click "Commit changes"
+If you don't have one: https://github.com/signup
 
-4. **Deploy on Vercel**:
-   - Go to https://vercel.com/signup
-   - Sign up with your GitHub account
-   - Click "Add New Project"
-   - Import your `fashion-stylist-app` repository
-   - Click "Deploy"
-   - Wait 2-3 minutes ⏳
+### Step 3: Upload to GitHub
 
-5. **Get your link!** 🎉
-   - Vercel will give you a URL like: `https://fashion-stylist-app.vercel.app`
-   - Share this link with anyone!
+1. Go to https://github.com/new
+2. Name it: `fashion-stylist-app`
+3. Make it **Public**
+4. Click "Create repository"
+5. Click "uploading an existing file"
+6. **Unzip the folder** and drag all the files inside
+7. Click "Commit changes"
 
-### Option 2: Deploy via Vercel CLI (For developers)
+### Step 4: Deploy on Vercel
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+1. Go to https://vercel.com/signup
+2. Sign up with your GitHub account
+3. Click "Add New Project"
+4. Select your `fashion-stylist-app` repository
+5. **IMPORTANT:** Before clicking Deploy:
+   - Click "Environment Variables"
+   - Add variable name: `ANTHROPIC_API_KEY`
+   - Add value: (paste your API key from Step 1)
+   - Click "Add"
+6. Click "Deploy"
+7. Wait 2-3 minutes ⏳
 
-# Navigate to the project folder
-cd fashion-stylist-app
+### Step 5: Get Your Link! 🎉
 
-# Deploy
-vercel
+Vercel will give you a URL like:
 ```
+https://fashion-stylist-app.vercel.app
+```
+
+**Share this link with anyone!** It works on phones and computers.
+
+---
 
 ## 📱 How to Use
 
@@ -52,6 +57,8 @@ vercel
 2. Take a photo of any fashion item (shoes, bag, jewelry, etc.)
 3. Get AI-powered styling suggestions
 4. Shop the look with direct links to Zara, Mango, and Parfois
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -61,6 +68,8 @@ vercel
 - Claude AI (Anthropic)
 - Lucide Icons
 
+---
+
 ## 💡 Features
 
 - 📸 Camera & gallery upload
@@ -69,15 +78,38 @@ vercel
 - 🛍️ Direct shopping links
 - 💡 Personalized styling tips
 - 📱 Mobile-optimized
+- 🔒 Secure API key handling
+
+---
 
 ## 🔧 Local Development
 
 ```bash
+# Install dependencies
 npm install
+
+# Create .env.local file
+echo "ANTHROPIC_API_KEY=your_key_here" > .env.local
+
+# Run development server
 npm run dev
 ```
 
 Open http://localhost:3000
+
+---
+
+## ❓ Troubleshooting
+
+### "Failed to analyze image" error?
+- Make sure you added your `ANTHROPIC_API_KEY` in Vercel's environment variables
+- Go to your Vercel project → Settings → Environment Variables
+- Add the key and redeploy
+
+### Need to update the API key?
+- Go to Vercel project → Settings → Environment Variables
+- Update `ANTHROPIC_API_KEY`
+- Go to Deployments → Click "..." on latest → "Redeploy"
 
 ---
 

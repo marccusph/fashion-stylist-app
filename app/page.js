@@ -29,68 +29,27 @@ export default function FashionStylist() {
     try {
       const base64Data = image.split(',')[1];
       
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      // Call our API route instead of Anthropic directly
+      const response = await fetch("/api/analyze", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [
-            {
-              role: "user",
-              content: [
-                {
-                  type: "image",
-                  source: {
-                    type: "base64",
-                    media_type: "image/jpeg",
-                    data: base64Data
-                  }
-                },
-                {
-                  type: "text",
-                  text: `Analyze this fashion item and provide styling suggestions. Return ONLY a JSON object (no markdown, no backticks) with this structure:
-{
-  "itemDescription": "brief description of the item and its color",
-  "styleCategory": "casual/formal/sporty/elegant",
-  "colorPalette": ["color1", "color2", "color3"],
-  "outfitSuggestions": [
-    {
-      "name": "Outfit name",
-      "items": {
-        "tops": "suggestion with colors",
-        "bottoms": "suggestion with colors",
-        "accessories": "suggestion"
-      },
-      "vibe": "description of the look",
-      "searchTerms": {
-        "zara": "zara search term",
-        "mango": "mango search term",
-        "parfois": "parfois search term"
-      }
-    }
-  ],
-  "tips": ["tip1", "tip2", "tip3"]
-}`
-                }
-              ]
-            }
-          ]
+          imageData: base64Data
         })
       });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to analyze image');
+      }
+
       const data = await response.json();
-      const textContent = data.content.find(item => item.type === 'text')?.text || '';
-      
-      // Clean and parse the response
-      const cleanText = textContent.trim();
-      const parsed = JSON.parse(cleanText);
-      setSuggestions(parsed);
+      setSuggestions(data);
     } catch (error) {
       console.error('Error:', error);
-      alert('Failed to analyze image. Please try again.');
+      alert(`Failed to analyze image: ${error.message}\n\nMake sure you've set up your ANTHROPIC_API_KEY in Vercel environment variables.`);
     } finally {
       setLoading(false);
     }
